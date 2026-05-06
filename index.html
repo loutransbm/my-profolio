@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lou Tran — CMO & Strategic Designer</title>
+  <meta name="description"
+    content="Chief Marketing Officer tại SBM Institute. Kiến trúc sư chiến lược cho thế hệ nhân lực toàn cầu.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+  <style>
+    /* === RESET & ROOT === */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #050505;
+      --surface: #0d0d0d;
+      --gold: #C5A059;
+      --gold-dim: rgba(197, 160, 89, 0.15);
+      --white: #ffffff;
+      --muted: #666666;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Montserrat', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--sans);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    ::selection {
+      background: var(--gold);
+      color: #000;
+    }
+
+    /* === CUSTOM CURSOR === */
+    #cursor {
+      width: 10px;
+      height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s, background 0.3s;
+      mix-blend-mode: difference;
+    }
+
+    #cursor-ring {
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(197, 160, 89, 0.5);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: all 0.15s ease-out;
+    }
+
+    body:hover #cursor-ring {
+      opacity: 1;
+    }
+
+    /* === GRAIN === */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: -200%;
+      width: 400%;
+      height: 400%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 9997;
+      animation: grain 0.5s steps(2) infinite;
+    }
+
+    @keyframes grain {
+
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      25% {
+        transform: translate(-5%, -5%);
+      }
+
+      50% {
+        transform: translate(5%, 5%);
+      }
+
+      75% {
+        transform: translate(-5%, 5%);
+      }
+    }
+
+    /* === NAV === */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 60px;
+      mix-blend-mode: normal;
+    }
+
+    nav::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(5, 5, 5, 0.9) 0%, transparent 100%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    /* === HERO === */
+    #hero {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--gold-dim);
+      display: grid;
+      grid-template-columns: 55% 45%;
+    }
+
+    /* Photo: right column, full height */
+    .hero-photo-col {
+      position: relative;
+      height: 100%;
+    }
+
+    .hero-photo-frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .hero-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      filter: grayscale(10%);
+      transition: filter 0.6s ease;
+      display: block;
+    }
+
+    .hero-photo-frame:hover img {
+      filter: grayscale(0%);
+    }
+
+    /* Gradient: fade left edge into dark bg */
+    .hero-photo-frame::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, var(--bg) 0%, rgba(5, 5, 5, 0.2) 35%, transparent 60%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Caption overlay at bottom of photo */
+    .hero-photo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 60px 36px 36px;
+      z-index: 2;
+      background: linear-gradient(to top, rgba(5, 5, 5, 0.9) 0%, transparent 100%);
+      writing-mode: initial;
+    }
+
+    .hero-photo-caption strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--white);
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .hero-photo-caption span {
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* Left text column */
+    .hero-left {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 10% 0 60px;
+    }
+
+    .hero-eyebrow {
+      font-size: 10px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s ease forwards 0.3s;
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(48px, 7vw, 100px);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1s ease forwards 0.5s;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 32px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.9s;
+    }
+
+    .hero-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 340px;
+    }
+
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      color: var(--white);
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: gap 0.3s, color 0.3s;
+      flex-shrink: 0;
+    }
+
+    .hero-cta::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s;
+      flex-shrink: 0;
+    }
+
+    .hero-cta:hover {
+      gap: 28px;
+      color: var(--gold);
+    }
+
+    .hero-cta:hover::before {
+      width: 60px;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 60px;
+      writing-mode: vertical-rl;
+      font-size: 9px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1.2s;
+    }
+
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 50px;
+      background: var(--gold-dim);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+
+      0%,
+      100% {
+        transform: scaleY(1);
+        opacity: 0.3;
+      }
+
+      50% {
+        transform: scaleY(0.5);
+        opacity: 1;
+      }
+    }
+
+    /* === SECTION BASE === */
+    section {
+      padding: 140px 60px;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 9px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 80px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* === ABOUT === */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      border-bottom: 1px solid var(--gold-dim);
+    }
+
+    .about-left {}
+
+    .about-title {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 72px);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 40px;
+    }
+
+    .about-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .about-right {
+      padding-top: 120px;
+    }
+
+    .about-text {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+
+    .about-text strong {
+      color: var(--white);
+      font-weight: 400;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 60px;
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid var(--gold-dim);
+    }
+
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 52px;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 8px;
+      display: block;
+    }
+
+    /* === WORKS === */
+    #works {
+      border-bottom: 1px solid var(--gold-dim);
+    }
+
+    .works-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 80px;
+    }
+
+    .works-title {
+      font-family: var(--serif);
+      font-size: clamp(40px, 5vw, 80px);
+      font-weight: 300;
+      line-height: 1;
+    }
+
+    .works-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .works-count {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--muted);
+    }
+
+    /* === PROJECT EXPAND (inside works) === */
+    .project-item {
+      display: flex;
+      flex-direction: column;
+      padding: 40px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      transition: padding-left 0.4s ease;
+      position: relative;
+      overflow: visible;
+    }
+
+    .project-item::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 1px;
+      width: 0;
+      background: var(--gold);
+      transition: width 0.6s ease;
+    }
+
+    .project-item:hover::after {
+      width: 100%;
+    }
+
+    .proj-header {
+      display: flex;
+      align-items: baseline;
+      gap: 32px;
+      flex-wrap: nowrap;
+    }
+
+    .proj-num {
+      font-size: 11px;
+      color: var(--gold);
+      font-weight: 500;
+      letter-spacing: 2px;
+      flex-shrink: 0;
+      width: 36px;
+    }
+
+    .proj-title {
+      font-family: var(--serif);
+      font-size: clamp(40px, 5.5vw, 80px);
+      font-weight: 300;
+      line-height: 1;
+      transition: color 0.3s;
+      flex: 1;
+      white-space: nowrap;
+    }
+
+    .project-item:hover .proj-title {
+      color: var(--gold);
+    }
+
+    .proj-cat {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      flex-shrink: 0;
+      margin-left: auto;
+      padding-left: 40px;
+    }
+
+    .proj-year {
+      font-size: 12px;
+      color: var(--muted);
+      flex-shrink: 0;
+      width: 50px;
+      text-align: right;
+    }
+
+    .proj-expand-icon {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(197, 160, 89, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s ease;
+      color: var(--gold);
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .project-item.open .proj-expand-icon {
+      transform: rotate(45deg);
+      border-color: var(--gold);
+    }
+
+    /* === PHILOSOPHY === */
+    #philosophy {
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--gold-dim);
+    }
+
+    .phi-quote {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4.5vw, 72px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.3;
+      max-width: 1000px;
+      margin: 0 auto 60px;
+      color: var(--white);
+    }
+
+    .phi-quote span {
+      color: var(--gold);
+    }
+
+    .phi-author {
+      font-size: 10px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .phi-bg-text {
+      position: absolute;
+      font-family: var(--serif);
+      font-size: clamp(100px, 20vw, 280px);
+      font-weight: 300;
+      color: rgba(197, 160, 89, 0.03);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* === PROFILE === */
+    #profile {
+      border-bottom: 1px solid var(--gold-dim);
+    }
+
+    .profile-container {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 120px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .profile-left {
+      position: sticky;
+      top: 140px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-photo {
+      width: 100%;
+      max-width: 240px;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      margin-bottom: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.1);
+      transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .profile-photo:hover img {
+      transform: scale(1.05);
+    }
+
+    .profile-name {
+      font-family: var(--serif);
+      font-size: clamp(40px, 6vw, 80px);
+      font-weight: 300;
+      line-height: 0.9;
+      margin-bottom: 16px;
+    }
+
+    .profile-name em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .profile-role {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+
+    .profile-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .profile-contact a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--white);
+      text-decoration: none;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s;
+      width: fit-content;
+    }
+
+    .profile-contact a:hover {
+      color: var(--gold);
+      padding-left: 10px;
+    }
+
+    .profile-contact a::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--gold-dim);
+      flex-shrink: 0;
+    }
+
+    .profile-right {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+    }
+
+    .resume-section {
+      margin-bottom: 40px;
+    }
+
+    .resume-section h4 {
+      font-size: 9px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .resume-item {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .resume-item strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--white);
+    }
+
+    .resume-item span {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+      display: block;
+    }
+
+    .resume-item small {
+      display: block;
+      margin-top: 8px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.5;
+    }
+
+    /* === PROJECT EXPAND === */
+    .project-item {
+      flex-direction: column;
+      align-items: stretch;
+      overflow: visible;
+    }
+
+    .proj-header {
+      display: grid;
+      grid-template-columns: 80px 1fr 200px 100px;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .proj-expand-icon {
+      margin-left: auto;
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(197, 160, 89, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.4s ease;
+      color: var(--gold);
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .project-item.open .proj-expand-icon {
+      transform: rotate(45deg);
+      border-color: var(--gold);
+    }
+
+    .proj-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+      opacity: 0;
+      margin-top: 0;
+    }
+
+    .project-item.open .proj-panel {
+      max-height: 800px;
+      opacity: 1;
+      margin-top: 32px;
+    }
+
+    .proj-panel-inner {
+      padding: 40px;
+      background: var(--surface);
+      border: 1px solid var(--gold-dim);
+      border-radius: 2px;
+    }
+
+    .proj-panel-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 32px;
+      max-width: 700px;
+    }
+
+    .proj-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .proj-gallery-item {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .proj-gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .proj-gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .proj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .proj-tag {
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+      padding: 6px 14px;
+    }
+
+    /* === TEAM SECTION === */
+    #team {
+      border-bottom: 1px solid var(--gold-dim);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 60px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .team-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .team-photo-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .team-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      filter: saturate(1.1);
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .team-card:hover .team-photo-wrap img {
+      transform: scale(1.04);
+    }
+
+    .team-photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(5, 5, 5, 0.8) 0%, transparent 50%);
+    }
+
+    .team-badge {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(5, 5, 5, 0.8);
+      padding: 6px 12px;
+      border: 1px solid var(--gold-dim);
+      backdrop-filter: blur(8px);
+    }
+
+    .team-name {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 10px;
+      transition: color 0.3s;
+    }
+
+    .team-card:hover .team-name {
+      color: var(--gold);
+    }
+
+    .team-role {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .team-linkedin {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+      border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+      padding-bottom: 4px;
+    }
+
+    .team-linkedin:hover {
+      color: var(--gold);
+    }
+
+    .team-linkedin::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .team-meta {
+      margin-bottom: 20px;
+      border-top: 1px solid rgba(197, 160, 89, 0.1);
+      padding-top: 16px;
+    }
+
+    .team-meta-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 8px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      align-items: start;
+    }
+
+    .team-meta-label {
+      font-size: 8px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .team-meta-val {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* === FOOTER === */
+    footer {
+      padding: 40px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* === REVEAL ANIMATION === */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 1024px) {
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 20px 24px;
+      }
+
+      section {
+        padding: 80px 24px;
+      }
+
+      #hero {
+        padding: 0 24px 60px;
+      }
+
+      .hero-photo-col {
+        display: none;
+      }
+
+      .hero-left {
+        max-width: 100%;
+      }
+
+      #about,
+      #profile {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .about-right {
+        padding-top: 0;
+      }
+
+      .proj-header {
+        flex-wrap: wrap;
+      }
+
+      .proj-cat,
+      .proj-year {
+        display: none;
+      }
+
+      .proj-title {
+        white-space: normal;
+        font-size: clamp(32px, 8vw, 56px);
+      }
+
+      .stats-row {
+        gap: 30px;
+      }
+
+      .hero-scroll {
+        display: none;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr !important;
+        gap: 48px;
+        max-width: 100% !important;
+      }
+
+      .profile-container {
+        grid-template-columns: 1fr;
+        gap: 60px;
+      }
+
+      .profile-left {
+        position: relative;
+        top: 0;
+      }
+
+      .profile-photo {
+        max-width: 100%;
+        aspect-ratio: auto;
+      }
+
+      .proj-gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- CURSOR -->
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Lou Tran</a>
+    <ul class="nav-links">
+      <li><a href="#about">Story</a></li>
+      <li><a href="#works">Works</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#philosophy">Philosophy</a></li>
+      <li><a href="#profile">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+
+    <!-- LEFT: Text -->
+    <div class="hero-left">
+      <div class="hero-top">
+        <h1 class="hero-title">
+          Người xây<br>
+          <em>hệ thống</em><br>
+          từ ý tưởng.
+        </h1>
+      </div>
+      <div class="hero-bottom">
+        <p class="hero-desc">
+          Lịch sử không nằm trong sách giáo khoa. Nó nằm trong cách một cộng đồng lựa chọn ghi nhớ — và trong cách một
+          thế hệ lựa chọn <em>tiếp nối hay bứt phá.</em>
+        </p>
+        <a href="#works" class="hero-cta">Xem công trình</a>
+      </div>
+    </div>
+
+    <!-- RIGHT: Photo -->
+    <div class="hero-photo-col">
+      <div class="hero-photo-frame">
+        <img src="https://sf-static.upanhlaylink.com/img/image_2026050520f02db16cce130642c55fc63b70f460.jpg"
+          alt="Lou Tran">
+        <div class="hero-photo-caption">
+          <strong>Lou Tran</strong>
+          <span>Chief Marketing Officer · SBM Institute</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">Cuộn xuống</div>
+
+  </section>
+
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-left">
+      <div class="section-label">01 — Câu chuyện</div>
+      <h2 class="about-title">
+        Bản sắc &<br>
+        <em>Kiến trúc Tư duy</em>.
+      </h2>
+    </div>
+    <div class="about-right reveal">
+      <p class="about-text">
+        Tôi bắt đầu với lịch sử và văn hóa — không phải trong giảng đường, mà qua những câu chuyện được truyền miệng qua
+        nhiều thế hệ. Tôi nhận ra rằng văn hóa không chỉ là di sản — nó là <strong>một hệ thống tư duy.</strong> Cách
+        một dân tộc hiểu về mình sẽ quyết định cách họ đứng trước thế giới.
+      </p>
+      <p class="about-text">
+        Câu hỏi đó đã dẫn tôi đến Marketing, rồi đến Giáo dục. Bởi vì nếu văn hóa là hệ điều hành, thì <strong>giáo dục
+          chính là bản cập nhật.</strong> Và thế hệ trẻ Việt Nam xứng đáng được trang bị phiên bản tốt nhất — không phải
+        để thoát ly, mà để hội nhập <em>với bản sắc nguyên vẹn.</em>
+      </p>
+      <p class="about-text">
+        Hôm nay, với vai trò CMO tại SBM Institute, tôi thiết kế các chương trình được công nhận tại Úc, Mỹ và Anh Quốc
+        — để 300+ người Việt trẻ có một hệ tư duy vững chắc khi bước ra thế giới mà không đánh mất chính mình.
+      </p>
+      <div class="stats-row">
+        <div>
+          <span class="stat-num" data-count="5">0</span>
+          <span class="stat-label">Năm kinh nghiệm</span>
+        </div>
+        <div>
+          <span class="stat-num" data-count="300">0</span>
+          <span class="stat-label">Học viên đào tạo</span>
+        </div>
+        <div>
+          <span class="stat-num" data-count="10">0</span>
+          <span class="stat-label">Chương trình quốc tế</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section id="works">
+    <div class="works-header reveal">
+      <h2 class="works-title">Selected <em>Works</em></h2>
+      <span class="works-count">04 Projects</span>
+    </div>
+
+    <div class="project-item reveal" data-id="1">
+      <div class="proj-header">
+        <span class="proj-num">01</span>
+        <h3 class="proj-title">Global Readiness Programme</h3>
+        <span class="proj-cat">Strategy / Education</span>
+        <span class="proj-year">2024</span>
+        <div class="proj-expand-icon">+</div>
+      </div>
+      <div class="proj-panel">
+        <div class="proj-panel-inner">
+          <p class="proj-panel-desc">
+            Trong một thế giới mà tấm bằng đại học không còn là tấm vé thông hành duy nhất, GRP được thiết kế như một
+            "Hệ điều hành tư duy" dành cho nhân lực Việt Nam. Thay vì chỉ cung cấp kiến thức, chúng tôi xây dựng lộ
+            trình chuẩn hóa năng lực dựa trên cố vấn từ các cựu du học sinh tại Úc, Mỹ và Anh Quốc. Dự án đã chuyển đổi
+            tư duy cho hơn 300 học viên, giúp họ không chỉ hội nhập mà còn khẳng định giá trị bản sắc trong môi trường
+            đa văn hóa.
+          </p>
+          <div class="proj-tags">
+            <span class="proj-tag">Education System</span>
+            <span class="proj-tag">Global Mindset</span>
+            <span class="proj-tag">International Standard</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-item reveal" data-id="2">
+      <div class="proj-header">
+        <span class="proj-num">02</span>
+        <h3 class="proj-title">HEART Framework</h3>
+        <span class="proj-cat">Philosophy / Hospitality</span>
+        <span class="proj-year">2023</span>
+        <div class="proj-expand-icon">+</div>
+      </div>
+      <div class="proj-panel">
+        <div class="proj-panel-inner">
+          <p class="proj-panel-desc">
+            HEART không chỉ là một khung năng lực, mà là triết lý vận hành con người. Chúng tôi đặt câu hỏi: "Làm thế
+            nào để sự hiếu khách Á Đông gặp gỡ được chuẩn mực dịch vụ khắt khe của quốc tế?". HEART Framework ra đời để
+            trả lời câu hỏi đó, tạo ra một ngôn ngữ chung về đạo đức nghề nghiệp và văn hóa dịch vụ, giúp các tổ chức
+            xây dựng đội ngũ có chiều sâu tâm hồn và sự chuyên nghiệp tuyệt đối.
+          </p>
+          <div class="proj-tags">
+            <span class="proj-tag">Culture Design</span>
+            <span class="proj-tag">Ethics</span>
+            <span class="proj-tag">Service Philosophy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-item reveal" data-id="3">
+      <div class="proj-header">
+        <span class="proj-num">03</span>
+        <h3 class="proj-title">SBM Brand Identity</h3>
+        <span class="proj-cat">Branding / Creative</span>
+        <span class="proj-year">2023</span>
+        <div class="proj-expand-icon">+</div>
+      </div>
+      <div class="proj-panel">
+        <div class="proj-panel-inner">
+          <p class="proj-panel-desc">
+            Tại SBM Institute, việc tái định vị thương hiệu không bắt đầu từ logo, mà bắt đầu từ tầm nhìn về một "Hệ
+            sinh thái giáo dục chiến lược". Chúng tôi xây dựng một bản sắc thương hiệu phản chiếu sự tinh tế, tin cậy và
+            khát vọng vươn tầm. Đây là nền tảng để SBM chuyển mình từ một trung tâm đào tạo đơn thuần trở thành đối tác
+            chiến lược của các tổ chức quốc tế hàng đầu.
+          </p>
+          <div class="proj-tags">
+            <span class="proj-tag">Brand Strategy</span>
+            <span class="proj-tag">Positioning</span>
+            <span class="proj-tag">Visual Architecture</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-item reveal" data-id="4">
+      <div class="proj-header">
+        <span class="proj-num">04</span>
+        <h3 class="proj-title">Vietnam Competency Standard</h3>
+        <span class="proj-cat">Research / System</span>
+        <span class="proj-year">2022</span>
+        <div class="proj-expand-icon">+</div>
+      </div>
+      <div class="proj-panel">
+        <div class="proj-panel-inner">
+          <p class="proj-panel-desc">
+            Một dự án nghiên cứu quy mô nhằm thu hẹp khoảng cách giữa nhân lực Việt và thị trường lao động toàn cầu.
+            Bằng cách tích hợp tiêu chuẩn AQF (Úc) và ACCSTP (ASEAN) vào bối cảnh Việt Nam, chúng tôi đã xây dựng nên
+            một hệ thống tham chiếu năng lực quốc gia, đặt nền móng cho việc chuyên nghiệp hóa và nâng tầm vị thế của
+            nhiều ngành nghề tại Việt Nam.
+          </p>
+          <div class="proj-tags">
+            <span class="proj-tag">National Policy</span>
+            <span class="proj-tag">Competency Mapping</span>
+            <span class="proj-tag">Hospitality Research</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team">
+    <div class="section-label">03 — Cộng sự</div>
+    <div class="team-grid" style="grid-template-columns: repeat(2,1fr); max-width: 860px;">
+
+      <!-- QUANG NGOC DANG -->
+      <div class="team-card reveal">
+        <div class="team-photo-wrap">
+          <img src="https://cdn.phototourl.com/free/2026-05-05-2295e8bb-9380-445b-8d3e-eb273a7335ae.jpg"
+            alt="Quang Ngoc Dang">
+          <div class="team-photo-overlay"></div>
+          <span class="team-badge">Lecturer · VNU International School</span>
+        </div>
+        <div class="team-name">Quang Ngoc Dang</div>
+        <div class="team-role">Giảng viên Kế toán & Tài chính<br>Trường Quốc tế — Đại học Quốc gia Hà Nội</div>
+
+        <div class="team-meta">
+          <div class="team-meta-item">
+            <span class="team-meta-label">Học vấn</span>
+            <span class="team-meta-val">Master in Finance — Oxford Brookes University (2023–2024)</span>
+          </div>
+          <div class="team-meta-item">
+            <span class="team-meta-label">Học vấn</span>
+            <span class="team-meta-val">Thạc sĩ Tài chính & Đầu tư — University of Nottingham, UK (Russell
+              Group).</span>
+          </div>
+          <div class="team-meta-item">
+            <span class="team-meta-label">Dấu ấn</span>
+            <span class="team-meta-val">Chuyên gia định giá (Valuation) tại PwC & EY Vietnam trước khi tham gia giảng
+              dạy đại học.</span>
+          </div>
+          <div class="team-meta-item">
+            <span class="team-meta-label">Sứ mệnh</span>
+            <span class="team-meta-val">Thu hẹp khoảng cách giữa lý thuyết học thuật và thực tiễn tài chính quốc tế cho
+              nhân lực Việt.</span>
+          </div>
+          <div class="team-meta-item">
+            <span class="team-meta-label">Nghiên cứu</span>
+            <span class="team-meta-val">Tác giả của nhiều công trình khoa học quốc tế về Tài chính Xanh và Kinh tế bền
+              vững.</span>
+          </div>
+        </div>
+        <a href="mailto:quangdn@vnuis.edu.vn" class="team-linkedin">quangdn@vnuis.edu.vn</a>
+      </div>
+
+      <!-- NGUYEN TUNG DUONG -->
+      <div class="team-card reveal">
+        <div class="team-photo-wrap">
+          <img src="https://cdn.phototourl.com/free/2026-05-05-bb45c257-7bfb-46c4-beac-2a71739c65b8.jpg"
+            alt="Nguyen Tung Duong">
+          <div class="team-photo-overlay"></div>
+          <span class="team-badge">FMVA · CBCA · CEO CareerMates</span>
+        </div>
+        <div class="team-name">Nguyen Tung Duong</div>
+        <div class="team-role">CEO & Founder — CareerMates<br>Senior Risk Consultant — KPMG Vietnam</div>
+
+        <div class="team-meta">
+          <div class="team-meta-item">
+            <span class="team-meta-label">Học vấn</span>
+            <span class="team-meta-val">Thạc sĩ Tài chính & Đầu tư — University of Nottingham, UK (Học bổng 40%).</span>
+          </div>
+          <div class="team-meta-item">
+            <span class="team-meta-label">Kinh nghiệm</span>
+            <span class="team-meta-val">Dày dạn kinh nghiệm tại Big4 (KPMG, PwC) và các tập đoàn công nghệ hàng đầu
+              (VinAI).</span>
+          </div>
+          <div class="team-meta-item">
+            <span class="team-meta-label">Dự án tiêu biểu</span>
+            <span class="team-meta-val">Founder CareerMates — Hệ sinh thái hỗ trợ du học sinh và nhân lực trẻ hội nhập
+              quốc tế.</span>
+          </div>
+          <div class="team-meta-item">
+            <span class="team-meta-label">Tầm nhìn</span>
+            <span class="team-meta-val">Kiến tạo lộ trình sự nghiệp vững chắc cho thế hệ nhân lực Việt vươn tầm Russell
+              Group.</span>
+          </div>
+        </div>
+        <a href="https://www.linkedin.com/in/tung-duong-nguyen/" target="_blank" class="team-linkedin">LinkedIn ·
+          tung-duong-nguyen</a>
+      </div>
+
+
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy">
+    <div class="phi-bg-text">SYSTEM</div>
+    <div class="section-label" style="justify-content:center;">04 — Triết lý</div>
+    <p class="phi-quote reveal">
+      "Sự khác biệt thực sự không đến từ bằng cấp hay Visa — nó đến từ <span>tư duy hệ thống</span> mà bạn mang theo
+      mình."
+    </p>
+    <p class="phi-author reveal">— Lou Tran, CMO · SBM Institute</p>
+  </section>
+
+  <!-- PROFILE -->
+  <section id="profile">
+    <div class="profile-container">
+      <div class="profile-left reveal">
+        <div class="section-label">04 — Profile</div>
+        <div class="profile-photo">
+          <img src="https://sf-static.upanhlaylink.com/img/image_2026050520f02db16cce130642c55fc63b70f460.jpg"
+            alt="Lou Tran">
+        </div>
+        <div class="profile-name">Lou<br><em>Tran</em></div>
+        <p class="profile-role">CMO · SBM Institute<br>CEO · Lumora Global</p>
+        <div class="profile-contact">
+          <a href="mailto:loutran.edugate@gmail.com">loutran.edugate@gmail.com</a>
+          <a href="#">LinkedIn Profile</a>
+        </div>
+      </div>
+      <div class="profile-right reveal">
+        <div class="resume-section">
+          <h4>Kinh nghiệm Chiến lược</h4>
+          <div class="resume-item">
+            <strong>CMO — SBM Institute</strong>
+            <span>2023 – Nay</span>
+            <small>Kiến trúc sư hệ thống giáo dục và chiến lược thương hiệu toàn cầu.</small>
+          </div>
+          <div class="resume-item">
+            <strong>CEO — Lumora Global</strong>
+            <span>2022 – Nay</span>
+            <small>Lãnh đạo hệ sinh thái du học, thực tập sinh và dịch vụ hội nhập quốc tế.</small>
+          </div>
+          <div class="resume-item">
+            <strong>Strategic Advisor (Visa & Migration)</strong>
+            <span>2018 – Nay</span>
+            <small>Cố vấn chiến lược cho các Luật sư tại Úc và doanh nghiệp Việt Nam về giải pháp Visa và lộ trình định
+              cư quốc tế.</small>
+          </div>
+        </div>
+        <div class="resume-section">
+          <h4>Core Expertise</h4>
+          <div class="resume-item">
+            <strong>International Program Design</strong>
+            <span>Phát triển hệ thống Du học và Thực tập sinh quốc tế bền vững.</span>
+          </div>
+          <div class="resume-item">
+            <strong>Brand Architecture</strong>
+            <span>Định vị thương hiệu dựa trên giá trị di sản và tầm nhìn tương lai.</span>
+          </div>
+          <div class="resume-item">
+            <strong>Visa & Migration Strategy</strong>
+            <span>Xây dựng lộ trình pháp lý và hội nhập toàn cầu cho nhân lực Việt.</span>
+          </div>
+        </div>
+        <div class="resume-section">
+          <h4>Dấu ấn Truyền thông & Văn hóa</h4>
+          <div class="resume-item">
+            <strong>Marketing Campaigns</strong>
+            <span>Chin-su · Celano · Krik</span>
+            <small>Thực thi và cố vấn chiến lược truyền thông cho các nhãn hàng tiêu dùng hàng đầu.</small>
+          </div>
+          <div class="resume-item">
+            <strong>Đại sứ Truyền thông</strong>
+            <span>Vở diễn "Trần Nhân Tông"</span>
+            <small>Lan tỏa giá trị lịch sử và tư tưởng văn hóa dân tộc thông qua nghệ thuật biểu diễn.</small>
+          </div>
+        </div>
+        <div class="resume-section">
+          <h4>Chứng chỉ</h4>
+          <div class="resume-item">
+            <strong>Global Readiness Programme</strong>
+            <span>SBM Institute Certified</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 Lou Tran</p>
+    <p>Hanoi, Vietnam</p>
+  </footer>
+
+  <script>
+    // === CURSOR ===
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.left = mouseX + 'px';
+      cursor.style.top = mouseY + 'px';
+    });
+
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      ring.style.left = ringX + 'px';
+      ring.style.top = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button, .project-item, .team-card').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width = '20px';
+        cursor.style.height = '20px';
+        ring.style.width = '60px';
+        ring.style.height = '60px';
+        ring.style.borderColor = 'rgba(197,160,89,0.8)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width = '10px';
+        cursor.style.height = '10px';
+        ring.style.width = '40px';
+        ring.style.height = '40px';
+        ring.style.borderColor = 'rgba(197,160,89,0.5)';
+      });
+    });
+
+    // === PROJECT EXPAND ===
+    document.querySelectorAll('.project-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        // Close all others
+        document.querySelectorAll('.project-item.open').forEach(p => p.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // === SCROLL REVEAL ===
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 100);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // === NUMBER COUNTER ===
+    const countObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.dataset.count);
+          const suffix = target >= 100 ? '+' : '+';
+          let start = 0;
+          const duration = 1800;
+          const step = target / (duration / 16);
+          const timer = setInterval(() => {
+            start += step;
+            if (start >= target) {
+              el.textContent = target + suffix;
+              clearInterval(timer);
+            } else {
+              el.textContent = Math.floor(start) + suffix;
+            }
+          }, 16);
+          countObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
+
+    // === PARALLAX HERO ===
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const heroTitle = document.querySelector('.hero-title');
+      if (heroTitle && scrollY < window.innerHeight) {
+        heroTitle.style.transform = `translateY(${scrollY * 0.15}px)`;
+        heroTitle.style.opacity = 1 - scrollY / (window.innerHeight * 0.8);
+      }
+    });
+  </script>
+</body>
+
+</html>
