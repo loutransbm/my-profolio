@@ -1,77 +1,70 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const About = () => {
-  const styles = {
-    section: {
-      padding: '100px 20px',
-      backgroundColor: 'var(--bg-color)',
-      borderTop: '1px solid var(--border-color)',
-    },
-    container: {
-      maxWidth: '1200px',
-      margin: '0 auto',
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-      gap: '60px',
-      textAlign: 'left',
-    },
-    label: {
-      fontSize: '12px',
-      fontWeight: '700',
-      color: 'var(--accent-color)',
-      textTransform: 'uppercase',
-      letterSpacing: '2px',
-      marginBottom: '20px',
-      display: 'block',
-    },
-    title: {
-      fontSize: 'clamp(24px, 4vw, 40px)',
-      fontWeight: '900',
-      lineHeight: '1.2',
-      marginBottom: '30px',
-      color: '#fff',
-    },
-    text: {
-      fontSize: '18px',
-      color: 'var(--text-secondary)',
-      lineHeight: '1.8',
-      marginBottom: '20px',
-    },
-    highlight: {
-      color: 'var(--accent-color)',
-      fontWeight: '700',
-    }
-  };
+  const countRefs = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.dataset.count);
+          const suffix = target >= 100 ? '+' : '+';
+          let start = 0;
+          const duration = 1800;
+          const step = target / (duration / 16);
+          const timer = setInterval(() => {
+            start += step;
+            if (start >= target) {
+              el.textContent = target + suffix;
+              clearInterval(timer);
+            } else {
+              el.textContent = Math.floor(start) + suffix;
+            }
+          }, 16);
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    countRefs.current.forEach(el => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section style={styles.section}>
-      <div style={styles.container}>
-        <div>
-          <span style={styles.label}>02 / Philosophy</span>
-          <h2 style={styles.title}>Tư duy hệ thống trong Marketing giáo dục.</h2>
-          <p style={styles.text}>
-            Với hơn 10 năm kinh nghiệm trong lĩnh vực truyền thông và giáo dục, tôi tin rằng 
-            <span style={styles.highlight}> giá trị thực </span> không nằm ở những lời hứa hoa mỹ, 
-            mà nằm ở một hệ thống vận hành chuẩn mực.
-          </p>
-          <p style={styles.text}>
-            Tại SBM Institute, chúng tôi không chỉ đào tạo kỹ năng, chúng tôi xây dựng 
-            <span style={styles.highlight}> tư duy toàn cầu </span> cho thế hệ trẻ Việt Nam.
-          </p>
-        </div>
-        <div>
-          <span style={styles.label}>03 / Expertise</span>
-          <div style={{ marginBottom: '30px' }}>
-            <h3 style={{ color: '#fff', marginBottom: '10px' }}>Brand Strategy</h3>
-            <p style={styles.text}>Định vị thương hiệu dựa trên giá trị cốt lõi và triết lý HEART.</p>
-          </div>
-          <div style={{ marginBottom: '30px' }}>
-            <h3 style={{ color: '#fff', marginBottom: '10px' }}>Digital Transformation</h3>
-            <p style={styles.text}>Số hóa quy trình đào tạo và tiếp cận khách hàng đa kênh.</p>
+    <section id="about">
+      <div className="about-left">
+        <div className="section-label">01 — Câu chuyện</div>
+        <h2 className="about-title">
+          Bản sắc &<br />
+          <em>Kiến trúc Tư duy</em>.
+        </h2>
+      </div>
+      <div className="about-right reveal">
+        <p className="about-text">
+          Tôi bắt đầu với lịch sử và văn hóa — không phải trong giảng đường, mà qua những câu chuyện được truyền miệng qua nhiều thế hệ. Tôi nhận ra rằng văn hóa không chỉ là di sản — nó là <strong>một hệ thống tư duy.</strong> Cách một dân tộc hiểu về mình sẽ quyết định cách họ đứng trước thế giới.
+        </p>
+        <p className="about-text">
+          Câu hỏi đó đã dẫn tôi đến Marketing, rồi đến Giáo dục. Bởi vì nếu văn hóa là hệ điều hành, thì <strong>giáo dục chính là bản cập nhật.</strong> Và thế hệ trẻ Việt Nam xứng đáng được trang bị phiên bản tốt nhất — không phải để thoát ly, mà để hội nhập <em>với bản sắc nguyên vẹn.</em>
+        </p>
+        <p className="about-text">
+          Hôm nay, với vai trò CMO tại SBM Institute, tôi thiết kế các chương trình được công nhận tại Úc, Mỹ và Anh Quốc — để 300+ người Việt trẻ có một hệ tư duy vững chắc khi bước ra thế giới mà không đánh mất chính mình.
+        </p>
+        <div className="stats-row">
+          <div>
+            <span className="stat-num" data-count="5" ref={el => countRefs.current[0] = el}>0</span>
+            <span className="stat-label">Năm kinh nghiệm</span>
           </div>
           <div>
-            <h3 style={{ color: '#fff', marginBottom: '10px' }}>Content Leadership</h3>
-            <p style={styles.text}>Xây dựng nội dung có chiều sâu, mang tính định hướng thị trường.</p>
+            <span className="stat-num" data-count="300" ref={el => countRefs.current[1] = el}>0</span>
+            <span className="stat-label">Học viên đào tạo</span>
+          </div>
+          <div>
+            <span className="stat-num" data-count="10" ref={el => countRefs.current[2] = el}>0</span>
+            <span className="stat-label">Chương trình quốc tế</span>
           </div>
         </div>
       </div>
