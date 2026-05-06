@@ -82,8 +82,8 @@ const Navbar = () => {
   return (
     <>
       <nav style={styles.nav} className="navbar-container">
-        <a href="#" style={styles.logo}>Lou Tran</a>
-        
+        <a href="#" style={styles.logo}>Lou Tran - test </a>
+
         {/* Desktop Links */}
         <div style={styles.links} className="navbar-links desktop-only">
           <a href="#origin" style={styles.link} className="nav-link navbar-link">Story</a>
@@ -93,14 +93,14 @@ const Navbar = () => {
         </div>
 
         {/* Hamburger Button */}
-        <div 
-          style={styles.hamburger} 
-          className="mobile-only" 
+        <div
+          style={styles.hamburger}
+          className="mobile-only"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <div style={{...styles.line, transform: isOpen ? 'rotate(45deg) translate(5px, 6px)' : 'none'}}></div>
-          <div style={{...styles.line, opacity: isOpen ? 0 : 1}}></div>
-          <div style={{...styles.line, transform: isOpen ? 'rotate(-45deg) translate(5px, -6px)' : 'none'}}></div>
+          <div style={{ ...styles.line, transform: isOpen ? 'rotate(45deg) translate(5px, 6px)' : 'none' }}></div>
+          <div style={{ ...styles.line, opacity: isOpen ? 0 : 1 }}></div>
+          <div style={{ ...styles.line, transform: isOpen ? 'rotate(-45deg) translate(5px, -6px)' : 'none' }}></div>
         </div>
       </nav>
 
